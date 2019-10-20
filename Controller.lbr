@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.01" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="yes"/>
@@ -1707,6 +1707,29 @@ Source: http://www.maxstream.net/products/xbee/datasheet_XBee_OEM_RF-Modules.pdf
 <vertex x="2.6901" y="-0.8699"/>
 </polygon>
 </package>
+<package name="LPG3">
+<pad name="1" x="-2.54" y="0" drill="0.48" shape="square"/>
+<pad name="2" x="-1.27" y="0" drill="0.48" rot="R90"/>
+<pad name="3" x="0" y="0" drill="0.48" rot="R90"/>
+<wire x1="-3.5814" y1="1.1176" x2="-3.5814" y2="-1.3208" width="0.1524" layer="39"/>
+<wire x1="-3.5814" y1="-1.3208" x2="1.0414" y2="-1.3208" width="0.1524" layer="39"/>
+<wire x1="1.0414" y1="-1.3208" x2="1.0414" y2="1.1176" width="0.1524" layer="39"/>
+<wire x1="1.0414" y1="1.1176" x2="-3.5814" y2="1.1176" width="0.1524" layer="39"/>
+<polygon width="0.1524" layer="39">
+<vertex x="-3.574" y="1.1049"/>
+<vertex x="-3.574" y="-1.3315"/>
+<vertex x="1.034" y="-1.3315"/>
+<vertex x="1.034" y="1.1049"/>
+</polygon>
+<wire x1="-3.4544" y1="-1.1938" x2="0.9144" y2="-1.1938" width="0.1524" layer="21"/>
+<wire x1="0.9144" y1="-1.1938" x2="0.9144" y2="0.6604" width="0.1524" layer="21"/>
+<wire x1="-3.4544" y1="0.6604" x2="-3.4544" y2="-1.1938" width="0.1524" layer="21"/>
+<wire x1="-3.3274" y1="-1.0668" x2="0.7874" y2="-1.0668" width="0.1524" layer="51"/>
+<wire x1="0.7874" y1="-1.0668" x2="0.7874" y2="0.5334" width="0.1524" layer="51"/>
+<wire x1="0.7874" y1="0.5334" x2="-3.3274" y2="0.5334" width="0.1524" layer="51"/>
+<wire x1="-3.3274" y1="0.5334" x2="-3.3274" y2="-1.0668" width="0.1524" layer="51"/>
+<text x="-3.8266" y="1.295" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+</package>
 </packages>
 <packages3d>
 <package3d name="JOYSTICK" urn="urn:adsk.eagle:package:9133155/2" type="model">
@@ -2074,6 +2097,17 @@ Source: http://www.maxstream.net/products/xbee/datasheet_XBee_OEM_RF-Modules.pdf
 <pin name="VCC3" x="-35.56" y="40.64" visible="pad" length="middle" direction="pwr"/>
 <pin name="XTAL1" x="-35.56" y="66.04" length="middle" direction="in"/>
 <pin name="XTAL2" x="-35.56" y="71.12" length="middle" direction="out"/>
+</symbol>
+<symbol name="DRV5053VAQLPGM">
+<pin name="VCC" x="2.54" y="0" length="middle" direction="pwr"/>
+<pin name="GND" x="38.1" y="-2.54" length="middle" direction="pwr" rot="R180"/>
+<pin name="OUT" x="38.1" y="0" length="middle" direction="out" rot="R180"/>
+<wire x1="7.62" y1="5.08" x2="7.62" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="7.62" y1="-7.62" x2="33.02" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="33.02" y1="-7.62" x2="33.02" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="33.02" y1="5.08" x2="7.62" y2="5.08" width="0.1524" layer="94"/>
+<text x="15.5956" y="9.1186" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;Name</text>
+<text x="14.9606" y="6.5786" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;Value</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -2717,6 +2751,26 @@ Source: MaxStream, Inc. xbee_productmanual.pdf</description>
 <technology name="2560V-8"/>
 <technology name="640-16"/>
 <technology name="640V-8"/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="DRV5053VAQLPGM" prefix="U">
+<gates>
+<gate name="A" symbol="DRV5053VAQLPGM" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="LPG3">
+<connects>
+<connect gate="A" pin="GND" pad="2"/>
+<connect gate="A" pin="OUT" pad="3"/>
+<connect gate="A" pin="VCC" pad="1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MANUFACTURER_PART_NUMBER" value="DRV5053VAQLPGM" constant="no"/>
+<attribute name="VENDOR" value="Texas Instruments" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>
