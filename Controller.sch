@@ -11215,6 +11215,8 @@ Source: 008-0260-0_E.pdf</description>
 <part name="C5" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C1206" package3d_urn="urn:adsk.eagle:package:23618/2" value="10U"/>
 <part name="C11" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C1206" package3d_urn="urn:adsk.eagle:package:23618/2" value="0.1u"/>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:23540/2" value="1k"/>
+<part name="P+11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11415,6 +11417,13 @@ Source: 008-0260-0_E.pdf</description>
 <instance part="P+10" gate="1" x="205.74" y="132.08" smashed="yes">
 <attribute name="VALUE" x="203.2" y="127" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="R7" gate="G$1" x="86.36" y="147.32" smashed="yes" rot="R270">
+<attribute name="NAME" x="80.2386" y="148.59" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="83.058" y="148.59" size="1.778" layer="96" rot="R270"/>
+</instance>
+<instance part="P+11" gate="1" x="86.36" y="157.48" smashed="yes">
+<attribute name="VALUE" x="83.82" y="152.4" size="1.778" layer="96" rot="R90"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -11471,6 +11480,11 @@ Source: 008-0260-0_E.pdf</description>
 <wire x1="170.18" y1="119.38" x2="175.26" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="119.38" x2="175.26" y2="121.92" width="0.1524" layer="91"/>
 <junction x="175.26" y="121.92"/>
+</segment>
+<segment>
+<pinref part="P+11" gate="1" pin="+5V"/>
+<pinref part="R7" gate="G$1" pin="1"/>
+<wire x1="86.36" y1="154.94" x2="86.36" y2="152.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -11595,6 +11609,14 @@ Source: 008-0260-0_E.pdf</description>
 <pinref part="U1" gate="A" pin="PCINT16/RXD/PD0"/>
 <wire x1="96.52" y1="137.16" x2="93.98" y2="137.16" width="0.1524" layer="91"/>
 <label x="93.98" y="137.16" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="R7" gate="G$1" pin="2"/>
+<wire x1="86.36" y1="142.24" x2="86.36" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="U1" gate="A" pin="PCINT14/!RESET/PC6"/>
+<wire x1="86.36" y1="139.7" x2="96.52" y2="139.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
