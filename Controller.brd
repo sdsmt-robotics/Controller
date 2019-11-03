@@ -2710,7 +2710,7 @@ design rules under a new name.</description>
 </element>
 <element name="U5" library="Controller" package="TS3B-L" value="LM1085ISX-5.0/NOPBTS3B-L" x="8.53" y="8.625" smashed="yes" rot="R90">
 <attribute name="MANUFACTURER_PART_NUMBER" value="LM1085ISX5.0NOPB" x="79.65" y="27.675" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="9.165" y="5.3484" size="1.27" layer="25" ratio="6" rot="SR90"/>
+<attribute name="NAME" x="16.0525" y="2.6984" size="1.27" layer="25" ratio="6" rot="SR90"/>
 <attribute name="VENDOR" value="Texas Instruments" x="79.65" y="27.675" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="XB2" library="Controller" package="XBEE-PRO" override_package3d_urn="urn:adsk.eagle:package:14574725/5" override_package_urn="urn:adsk.eagle:footprint:14574726/1" value="XBEE-PRO" x="62.5" y="42" smashed="yes">
@@ -3758,10 +3758,8 @@ design rules under a new name.</description>
 <contactref element="U$1" pad="D"/>
 <contactref element="R19" pad="2"/>
 <contactref element="U1" pad="2"/>
-<wire x1="45.72" y1="46.0375" x2="53.6575" y2="46.0375" width="0.254" layer="1"/>
-<wire x1="45.085" y1="45.4025" x2="45.72" y2="46.0375" width="0.254" layer="1"/>
+<wire x1="53.6575" y1="46.0375" x2="46.45" y2="46.0375" width="0.254" layer="1"/>
 <wire x1="53.6575" y1="46.0375" x2="53.8775" y2="46.1975" width="0.254" layer="1"/>
-<wire x1="45.085" y1="45.4025" x2="44.962" y2="45.105" width="0.254" layer="1"/>
 <wire x1="60.0075" y1="52.07" x2="59.055" y2="53.0225" width="0.254" layer="16"/>
 <wire x1="60.0075" y1="47.3075" x2="60.0075" y2="52.07" width="0.254" layer="16"/>
 <wire x1="59.3725" y1="46.6725" x2="60.0075" y2="47.3075" width="0.254" layer="1"/>
@@ -3771,6 +3769,8 @@ design rules under a new name.</description>
 <wire x1="59.055" y1="53.0225" x2="58.88" y2="53.3" width="0.254" layer="16"/>
 <wire x1="53.975" y1="46.355" x2="53.8775" y2="46.1975" width="0.254" layer="1"/>
 <via x="60.0075" y="47.3075" extent="1-16" drill="0.35"/>
+<wire x1="46.45" y1="46.0375" x2="45.5175" y2="45.105" width="0.254" layer="1"/>
+<wire x1="45.5175" y1="45.105" x2="44.962" y2="45.105" width="0.254" layer="1"/>
 </signal>
 <signal name="N$17">
 <contactref element="R18" pad="1"/>
@@ -3996,14 +3996,16 @@ design rules under a new name.</description>
 <wire x1="112.7155" y1="8.1565" x2="113.29975" y2="7.57225" width="0.508" layer="1"/>
 <wire x1="113.29975" y1="7.57225" x2="114.1375" y2="6.7345" width="0.508" layer="1"/>
 <wire x1="108.585" y1="11.43" x2="108.2675" y2="11.43" width="0.254" layer="1"/>
-<wire x1="110.8075" y1="9.2075" x2="108.585" y2="11.43" width="0.254" layer="1"/>
-<wire x1="110.8075" y1="2.2225" x2="110.8075" y2="9.2075" width="0.254" layer="1"/>
-<wire x1="121.285" y1="2.2225" x2="110.8075" y2="2.2225" width="0.254" layer="1"/>
-<wire x1="121.92" y1="2.8575" x2="121.285" y2="2.2225" width="0.254" layer="1"/>
-<wire x1="121.92" y1="7.62" x2="121.92" y2="2.8575" width="0.254" layer="1"/>
-<wire x1="113.3475" y1="7.62" x2="121.92" y2="7.62" width="0.254" layer="1"/>
 <wire x1="108.2675" y1="11.43" x2="108.3375" y2="11.3625" width="0.254" layer="1"/>
 <wire x1="113.3475" y1="7.62" x2="113.29975" y2="7.57225" width="0.254" layer="1"/>
+<wire x1="108.3375" y1="11.3625" x2="108.225" y2="11.475" width="0.254" layer="1"/>
+<wire x1="108.225" y1="11.475" x2="106.45" y2="11.475" width="0.254" layer="1"/>
+<via x="106.45" y="11.475" extent="1-16" drill="0.35"/>
+<wire x1="106.45" y1="11.475" x2="111.6625" y2="11.475" width="0.254" layer="16"/>
+<wire x1="111.6625" y1="11.475" x2="112.6625" y2="12.475" width="0.254" layer="16"/>
+<via x="112.6625" y="12.475" extent="1-16" drill="0.35"/>
+<wire x1="112.6625" y1="12.475" x2="112.6625" y2="11.053" width="0.254" layer="1"/>
+<wire x1="112.6625" y1="11.053" x2="112.7155" y2="11" width="0.254" layer="1"/>
 </signal>
 <signal name="RESET">
 <contactref element="J3" pad="5"/>
