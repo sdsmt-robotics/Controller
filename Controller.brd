@@ -217,7 +217,6 @@
 <vertex x="57.3375" y="30.5375"/>
 <vertex x="57.3375" y="37.95"/>
 </polygon>
-<dimension x1="56.9875" y1="2.15" x2="58.7875" y2="1.975" x3="57.4546625" y3="-2.389515625" textsize="1.778" layer="1" dtype="diameter"/>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
@@ -3160,8 +3159,8 @@ design rules under a new name.</description>
 <polygon width="0.1524" layer="1" rank="2">
 <vertex x="6.0625" y="51.0125"/>
 <vertex x="6.0625" y="1.35"/>
-<vertex x="119.35" y="1.35"/>
-<vertex x="119.35" y="51.075"/>
+<vertex x="122.6625" y="1.35"/>
+<vertex x="122.6625" y="47.7625"/>
 <vertex x="108.0625" y="62.3625"/>
 <vertex x="90.6625" y="62.3625"/>
 <vertex x="87.95" y="59.65"/>
