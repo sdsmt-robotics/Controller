@@ -38,18 +38,18 @@ void loop() {
     
     PORTB |= (1<<PB1);
     col_flag = CheckKeyPress();
-    PORTB &= (1<<PB1);
+    PORTB &= ~(1<<PB1);
     setframe(message_frame,row_flag++,*col_flag);
 
     PORTB |= (1<<PB2);
     col_flag = CheckKeyPress();
-    PORTB &= (1<<PB2);
+    PORTB &= ~(1<<PB2);
     setframe(message_frame,row_flag++,*col_flag);
 
 
     PORTD |= (1<<PD7);
     col_flag = CheckKeyPress();
-    PORTB &= (1<<PD7);  
+    PORTB &= ~(1<<PD7);  
     setframe(message_frame,row_flag++,*col_flag);
 
     
