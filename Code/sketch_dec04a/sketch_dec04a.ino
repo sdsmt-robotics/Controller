@@ -109,7 +109,7 @@ const int RYLY = 7; //SW 6/8 6 = Right Yellow and 8 = Left Yellow -> RYLY
 const int Pull_Right = 2; //C1
 const int Pull_Left = 3; //C2
 const int Pull_Bumper = 5; //C3
-
+static bool Is_Pressed = false; //used to see if a button is pressed and send a single value
 void setup() {
   // put your setup code here, to run once:
   pinMode(Pull_Right, INPUT);
@@ -141,32 +141,37 @@ void loop() {
     //these two buttons are tied together when pulsed
     right_green_button();
     left_blue_button();
-    delay(10);
+    delay(12);
 
     right_stick(previous_right_x_joystick, previous_right_y_joystick);
+    left_stick(previous_left_x_joystick, previous_left_y_joystick);
     
     //these three are tied together when pulsed
     right_blue_button();
     left_red_button();
     left_bumper();
-    delay(10);
-    
+    delay(12);
+
+    right_stick(previous_right_x_joystick, previous_right_y_joystick);
     left_stick(previous_left_x_joystick, previous_left_y_joystick);
     
     // These three are tied together
     right_red_button(); 
     left_green_button();
     right_bumper();
-    delay(10);
+    delay(12);
     
     right_stick(previous_right_x_joystick, previous_right_y_joystick);
+    left_stick(previous_left_x_joystick, previous_left_y_joystick);
     
     //tied together when pulsed
     right_yellow_button();
     left_yellow_button();
-    delay(10);
+    delay(12);
     
+    right_stick(previous_right_x_joystick, previous_right_y_joystick);
     left_stick(previous_left_x_joystick, previous_left_y_joystick);
+    delay(30);
   }
 }
 
@@ -174,49 +179,70 @@ void right_green_button()
 {
   //checking if the right side green button was pressed
     digitalWrite(RGLB, HIGH);
-    delay(1);
+    delay(2);
     if (digitalRead(Pull_Right) == HIGH)
+    {
+      Is_Pressed = true; 
+    }
+    digitalWrite(RGLB, LOW);
+    if (Is_Pressed == true)
     {
       Serial.write("?G");
     }
-    digitalWrite(RGLB, LOW);
+    Is_Pressed = false;
 }
 
 void right_blue_button()
 {
   //checking if the right side blue button was pressed
     digitalWrite(RBLR, HIGH);
-    delay(1);
+    delay(2);
     if (digitalRead(Pull_Right) == HIGH)
+    {
+      Is_Pressed = true;
+    }
+    digitalWrite(RBLR, LOW);
+    
+    if (Is_Pressed == HIGH)
     {
       Serial.write("?B");
     }
-    digitalWrite(RBLR, LOW);
+    Is_Pressed = false;
 }
 
 void right_red_button()
 {
     //checking if the right side red button was pressed
     digitalWrite(RRLG, HIGH);
-    delay(1);
+    delay(2);
     if (digitalRead(Pull_Right) == HIGH )
+    {
+      Is_Pressed = true;
+    }
+    digitalWrite(RRLG, LOW);
+    if (Is_Pressed == HIGH )
     {
       //Serial.write(" Red Pressed "); //testing only
       Serial.write("?R");
     }
-    digitalWrite(RRLG, LOW);
+    Is_Pressed = false; 
 }
 
 void right_yellow_button()
 {
     //checking if the right side yellow button was pressed
     digitalWrite(RYLY, HIGH);
-    delay(1);
+    delay(2);
     if (digitalRead(Pull_Right) == HIGH)
+    {
+      Is_Pressed = true;
+    }
+    if (Is_Pressed == HIGH)
     {
       Serial.write("?Y");
     }
     digitalWrite(RYLY, LOW);
+    Is_Pressed = false;
 }
 
 void left_green_button()
@@ -225,9 +251,14 @@ void left_green_button()
     //digitalWrite(RRLG, HIGH);
     if(digitalRead(Pull_Left) == HIGH)
     {
+      Is_Pressed = true;
+    }
+    if(Is_Pressed == HIGH)
+    {
       Serial.write("?g");
     }
     //digitalWrite(RRLG, LOW);
+    Is_Pressed = false;
 }
 
 void left_red_button()
@@ -236,9 +267,14 @@ void left_red_button()
     //digitalWrite(RBLR, HIGH);
     if (digitalRead(Pull_Left) == HIGH)
     {
+      Is_Pressed = true;    
+    }
+    if (Is_Pressed == HIGH)
+    {
       Serial.write("?r");    
     }
     //digitalWrite(RRLG, LOW);
+    Is_Pressed = false;
 }
 
 void left_blue_button()
@@ -247,9 +283,14 @@ void left_blue_button()
     //digitalWrite(RGLB, HIGH);
     if (digitalRead(Pull_Left) == HIGH)
     {
+      Is_Pressed = true;
+    }
+    if (Is_Pressed == HIGH)
+    {
       Serial.write("?b");
     }
     //digitalWrite(RGLB, LOW);
+    Is_Pressed = false;
 }
 
 void left_yellow_button()
@@ -258,9 +299,14 @@ void left_yellow_button()
     //digitalWrite(RYLY, HIGH);
     if (digitalRead(Pull_Left) == HIGH)
     {
+      Is_Pressed = true;
+    }
+    if (Is_Pressed == HIGH)
+    {
       Serial.write("?y");
     }
     //digitalWrite(RYLY, LOW);
+    Is_Pressed = false;
 }
 
 void right_bumper()
@@ -268,9 +314,14 @@ void right_bumper()
       //digitalWrite(RRLG, HIGH);
       if (digitalRead(Pull_Bumper) == HIGH)
       {
+        Is_Pressed = true;
+      }
+      if (Is_Pressed == HIGH)
+      {
         Serial.write("?r");
       }
       //digitalWrite(RRLG, LOW);
+      Is_Pressed = false;
 }
 
 void left_bumper()
@@ -278,9 +329,14 @@ void left_bumper()
   //digitalWrite(RBLR, HIGH);
   if (digitalRead(Pull_Bumper) == HIGH)
   {
+    Is_Pressed = true;
+  }
+  if (Is_Pressed == HIGH)
+  {
     Serial.write("?l");
   }
   //digitalWrite(RBLR, LOW);
+  Is_Pressed = false;
 }
 
 //Cehcks right joystick and sends the value
