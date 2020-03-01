@@ -171,7 +171,7 @@ void loop() {
     
     right_stick(previous_right_x_joystick, previous_right_y_joystick);
     left_stick(previous_left_x_joystick, previous_left_y_joystick);
-    delay(30);
+    delay(36);
   }
 }
 
