@@ -1,5 +1,5 @@
 # Controller Code  
-This is all of the code for the controllers. All of the controllers run using the same communication protocal. This allows any of the controllers to be used interchangeably to control a robot by simply swapping out the XBee. A summary of the folders in this directory is as follows.
+This is all of the code for the controllers. All of the controllers run using the same communication protocol. This allows any of the controllers to be used interchangeably to control a robot by simply swapping out the XBee. A summary of the folders in this directory is as follows.
   
 Folders with general classes:  
  - **receive** - class for receiving communications from the controller.   
@@ -13,7 +13,7 @@ Folders with controller code:
 Folders with example code and documentation:
  - **sketch_dec04a** - documentation and example code for rev3.   
 
-# Communication Protocal 
+# Communication Protocol  
 Each transmission is composed of the header and the data.  The header is one byte long and specifies the data that follows. Not all of the controller data is sent with each transmission. The bits in the header specify what data is sent.  
 
 The transmission bytes are as follows:  
@@ -50,10 +50,10 @@ The sending device is strategic about what it will send and when it will send it
 
 
 
-# Sending Code
+# Sending Code  
 The main purpose of this class is to handle the transmission of data from the controller. The reading of buttons and joysticks is mostly dependent on the version of controller, so it is largely ommitted from this class (although, there some helpful bits to make life easier). General usage is as follows.  
 
-**Setup**
+**Setup**  
 Pass in the serial strea to use for communications.
 
     Controller controller(Serial);  
@@ -71,7 +71,7 @@ Call the update function in the Arduino loop() or wherever values are changed. T
     }
 
 
-**Updating Values**
+**Updating Values**  
 The rest of the functions are used for updating values. Most of these functions use a Dir or a Axis to specify to which button/joystick/trigger we are referring. These are enum values.  Options are as follows:  
 
  - **Dir:** LEFT, RIGHT, UP, DOWN
@@ -93,14 +93,14 @@ The rest of these functions are for digital values and expect a true/false.
 
 
 
-**Other Notes**
+**Other Notes**  
 There is a constant defined in the .cpp file called BAUDRATE which controls the baudrate. Bumping this up may improve performance.  
 
 There is another constant defined in the .cpp file called DEBUG_MODE. Uncommenting this will print the output in human-readable form instead of binary.   
 
-# Receiving Code
+# Receiving Code  
 
-**Setup**
+**Setup**  
 In the constructor, pass in the serial stream to user. Any of the hardware serial streams will do.
 
     Controller controller(Serial);  
@@ -119,22 +119,22 @@ The class must be told when to try to read incoming data. This can be placed in 
 	}
 
   
-**Checking if Connected**
+**Checking if Connected**  
 The controller connection will time out if nothing is received or over 1 second. This function will check the connection status.
 
     bool connected();
 
-**Joystick Vals**
+**Joystick Vals**  
 This function will return the curent value for a joystick along a particular axis in the range -128 to 128. 
 
     int8_t joystick(Dir side, Axis axis);
 
-**Trigger Vals**
+**Trigger Vals**  
 This function will return the current value of the trigger in the range 0 to 255.
 
     uint8_t trigger(Dir side);
 
-**Button Vals**
+**Button Vals**  
 The button, Dpad, and bumper function all work similarly. They return true or false depending on whether the button is pressed.  
 
     bool joyButton(Dir side);
@@ -150,7 +150,7 @@ There are also functions for getting button clicks. These are useful in instance
     bool bumperClick(Dir side);
     
 
-**Other Notes**
+**Other Notes**  
 *On handling incoming serial data:*  
 It seems natural to put the incoming data handler in the Arduino  serialEvent() function since it supposedly gets called whenever serial data is available. But guess what: IT DOESN'T! It only gets called *at the end of an Arduino loop()* if serial data is available. Depending on the time taken in this loop, the incoming values may overflow the serial receive buffer.  
   
