@@ -81,6 +81,14 @@ void printButtonChanges() {
   if (controller.bumperClick(RIGHT)) {
     Serial.println("bumper:RIGHT");
   }
+  
+  //joysticks
+  if (controller.joyButtonClick(LEFT)) {
+    Serial.println("joy:LEFT");
+  }
+  if (controller.joyButtonClick(RIGHT)) {
+    Serial.println("joy:RIGHT");
+  }
 }
 
 /**
@@ -112,6 +120,11 @@ void printEverything() {
     Serial.print(controller.bumper(LEFT));
     Serial.print(controller.bumper(RIGHT));
 
+    //joysticks
+    Serial.print("],joy:[");
+    Serial.print(controller.joyButton(LEFT));
+    Serial.print(controller.joyButton(RIGHT));
+    
     //triggers
     Serial.print("],trig:[");
     Serial.print(controller.trigger(LEFT));
