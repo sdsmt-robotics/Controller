@@ -25,6 +25,9 @@
 #define BUT_R_L_PIN 7
 #define BUT_R_R_PIN 4
 
+//range for joystick values
+#define JOY_RANGE 1022
+
 //Create the communications object. Use Serial for the communications.
 Controller controller(Serial);
 
@@ -62,12 +65,33 @@ void loop() {
   controller.setDpad(UP,    digitalRead(BUT_L_U_PIN));
   controller.setDpad(DOWN,  digitalRead(BUT_L_D_PIN));
 
-  //joystick values. Scale the analog values from 1023 down to 1.0.
-  controller.setJoystick(LEFT, X, analogRead(JOY_L_X_PIN) / 1023.0);
-  controller.setJoystick(LEFT, Y, analogRead(JOY_L_Y_PIN) / 1023.0);
-  controller.setJoystick(RIGHT, X, analogRead(JOY_R_X_PIN) / 1023.0);
-  controller.setJoystick(RIGHT, Y, analogRead(JOY_R_Y_PIN) / 1023.0);
+  //joystick values.
+  controller.setJoystick(LEFT, X, scaleJoy(analogRead(JOY_L_X_PIN)));
+  controller.setJoystick(LEFT, Y, scaleJoy(analogRead(JOY_L_Y_PIN)));
+  controller.setJoystick(RIGHT, X, scaleJoy(analogRead(JOY_R_X_PIN)));
+  controller.setJoystick(RIGHT, Y, scaleJoy(analogRead(JOY_R_Y_PIN)));
 
   //do an update
   controller.update();
+}
+
+/**
+ * Scale an analog joystick value to get something in the range -1.0 to 1.0.
+ * 
+ * @param val - the joystick value
+ * @return the scaled value.
+ */
+float scaleJoy(int val) {
+  const int middle = 1023 / 2;
+  const float scaleFactor = 2.0 / float(JOY_RANGE);
+  float newVal;
+
+  //shift
+  newVal = val - middle;
+
+  //scale and constrain
+  newVal = newVal * scaleFactor;
+
+  //constrain
+  return constrain(newVal, -1.0, 1.0);
 }

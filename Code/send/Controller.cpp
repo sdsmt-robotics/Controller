@@ -47,10 +47,10 @@
 //Uncomment this line to transmit as human readable stuff instead of in binary
 //#define DEBUG_MODE
 
-#define BAUDRATE 9600
+#define BAUDRATE 115200
 
 //sending intervals in ms
-#define MIN_INTERVAL 10
+#define MIN_INTERVAL 20
 #define ANALOG_INTERVAL 50
 #define MAX_INTERVAL 800
 
@@ -60,6 +60,9 @@ const uint8_t TRIGGER    = 1 << 2;
 const uint8_t BUTTONS    = 1 << 4;
 const uint8_t NON_ANALOG = BUTTONS | (BUTTONS << 1);
 const uint8_t ALL        = 0b00111111;
+const uint8_t LEFT_HALF    = JOY | BUTTONS | TRIGGER;
+const uint8_t RIGHT_HALF = (JOY << 1) | (BUTTONS << 1) | (TRIGGER << 1);
+
 
 //Define offsets for buttons (the rest are in enums).
 const uint8_t JOY_BUTTON  = 4;
@@ -212,12 +215,16 @@ void Controller::update() {
 /** Send all the data
 */
 void Controller::fullSend() {
-    //Update the header to specify that everything should send
-    dataHeader |= ALL;
+    //Update the header to specify that left half should send
+    dataHeader |= LEFT_HALF;
     
     //Send the data
     send();
     lastFullSend = millis();
+
+    //update the header to specify right half should send.
+    //it will send as soon as the min interval has passed.
+    dataHeader |= RIGHT_HALF;
 }
 
 /**
@@ -235,14 +242,14 @@ void Controller::send() {
     //Decide what data to send and send it
     //left joystick
     if (dataHeader & (JOY << LEFT)) {
-        xbeeSerial.write((uint8_t)(joy[LEFT][X] * 255));
-        xbeeSerial.write((uint8_t)(joy[LEFT][Y] * 255));
+        xbeeSerial.write((uint8_t)((joy[LEFT][X] + 1.0) * 127.5));
+        xbeeSerial.write((uint8_t)((joy[LEFT][Y] + 1.0) * 127.5));
     }
     
     //right joysticks
     if (dataHeader & (JOY << RIGHT)) {
-        xbeeSerial.write((uint8_t)(joy[RIGHT][X] * 255));
-        xbeeSerial.write((uint8_t)(joy[RIGHT][Y] * 255));
+        xbeeSerial.write((uint8_t)((joy[RIGHT][X] + 1.0) * 127.5));
+        xbeeSerial.write((uint8_t)((joy[RIGHT][Y] + 1.0) * 127.5));
     }
     
     //left trigger
@@ -273,17 +280,17 @@ void Controller::send() {
     //left joystick
     if (dataHeader & (JOY << LEFT)) {
         xbeeSerial.print(",");
-        xbeeSerial.print((uint8_t)(joy[LEFT][X] * 255));
+        xbeeSerial.print((uint8_t)((joy[LEFT][X] + 1.0) * 127.5));
         xbeeSerial.print(",");
-        xbeeSerial.print((uint8_t)(joy[LEFT][Y] * 255));
+        xbeeSerial.print((uint8_t)((joy[LEFT][Y] + 1.0) * 127.5));
     }
     
     //right joysticks
     if (dataHeader & (JOY << RIGHT)) {
         xbeeSerial.print(",");
-        xbeeSerial.print((uint8_t)(joy[RIGHT][X] * 255));
+        xbeeSerial.print((uint8_t)((joy[RIGHT][X] + 1.0) * 127.5));
         xbeeSerial.print(",");
-        xbeeSerial.print((uint8_t)(joy[RIGHT][Y] * 255));
+        xbeeSerial.print((uint8_t)((joy[RIGHT][Y] + 1.0) * 127.5));
     }
     
     //left trigger

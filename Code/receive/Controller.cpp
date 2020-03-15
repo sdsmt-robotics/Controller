@@ -5,8 +5,9 @@
  * init() - initilize receiving. Call in setup();
  * connected() - check if the controller is currently connected. 
  * receiveData() - read any data that has been sent to the receiver. Call this often or you will loose stuff.
+ * setJoyDeadzone(deadzone) - set a deadzone for the joysticks.
  *
- * joystick(side, axis) - get the joystick for the given side and axis
+ * joystick(side, axis) - get the joystick value for the given side and axis
  * trigger(side) - get the trigger value on the given side
  *
  * joyButton(side) - check if a joyButton is pressed
@@ -21,15 +22,11 @@
  *
  */
  
- /*TODO:
-  - Both xbees are 200kbps (=200,000 baud). Can definitely bump serial baud to at least 38,400.
- */
- 
 #include "Controller.h"
 
-#define BAUDRATE 9600
+#define BAUDRATE 115200
 #define CONNECTION_TIMEOUT 1000
-#define PACKET_TIMEOUT 2  //max amount of time a byte should ever take to send
+#define PACKET_TIMEOUT 5  //max amount of time a transmission should ever take to send
 
 //Data header bitmasks
 #define LEFT_JOY_X    0b00000001
@@ -80,14 +77,18 @@ void Controller::init() {
 
 /**
  * @brief Get the value for the given joystick and axis. Will give a value in 
- * the range -128 to 127.
+ * the range -1.0 to 1.0.
  * 
  * @param side side of the joystick. [LEFT or RIGHT].
  * @param axis axis to return. [X or Y].
  * @return the joystick value on the axis. 
  */
-int8_t Controller::joystick(Dir side, Axis axis) {
-    return joy[side][axis] - 128;
+float Controller::joystick(Dir side, Axis axis) {
+    if (abs(joy[side][axis]) < joyDeadzone) {
+        return 0.0;
+    }
+    
+    return joy[side][axis];
 }
 
 /**
@@ -132,12 +133,12 @@ bool Controller::bumper(Dir side) {
 }
 
 /**
-* Get the value of a trigger. Will be value in the range 0 to 255.
+* Get the value of a trigger. Will be value in the range 0.0 to 1.0.
 *
-* @param side - Side of the bumper. (LEFT or RIGHT).
+* @param side - Side of the trigger. (LEFT or RIGHT).
 * @return Value of the trigger.
 */
-uint8_t Controller::trigger(Dir side) {
+float Controller::trigger(Dir side) {
     return triggers[side];
 }
 
@@ -166,6 +167,15 @@ bool Controller::connected() {
     return (millis() - lastReceive) < CONNECTION_TIMEOUT;
 }
 
+/**
+* Set a range of values under which joystick values will be ignored.
+*
+* @param deadzone - value in the range 0.0 to 1.0.
+*/
+void Controller::setJoyDeadzone(float deadzone) {
+  joyDeadzone = deadzone;
+}
+
 //Don't mind us. We are for debugging.
 void printBinary(uint8_t val) {
   for (int i = 7; i >= 0; i--) {
@@ -179,84 +189,111 @@ void printBinary(int val) {
 }
 
 /**
-* Receive data from the controller. This function should be called using the 
-* serialEvent() function. 
+* Receive data from the controller. This function should be called at an interval less than 20ms. 
+* The serialEvent() function can be used for this, but it may not be fast enough if loop() takes 
+* a long time. 
 * 
 * How this works:
-*  - if last transmission is complete or has timed out, read the first byte as 
-*     the data header and use it to construct an array of targets for the upcoming data.
+*  - Get the first valid data header from the serial buffer. 
+*  - Use the data header to construct an array of targets for the upcoming data.
+*  - Loop until we have received all data (curByte == numBytes), or we have timed out.
 *  - Each time we get a new byte of data, save based on the target for that byte.
-*  - Once we reach the end (curByte == numBytes), the transmission is done.
 *  - Every time we receive any data, update the last receive time.
 */
 void Controller::receiveData() {
     uint8_t dataHeader = 0;  //header for the packet of send data
+    int8_t curByte = 0;      //current byte in the transmission
+    int8_t numBytes = 0;     //number of bytes in the transmission
 
     if (xbeeSerial.available()) {
-        //reset if last send timed out
-        if ((millis() - lastReceive) > PACKET_TIMEOUT) {
-            curByte = 0;
-            numBytes = 0;
+
+        //read the first valid header
+        dataHeader = xbeeSerial.read();
+        while (xbeeSerial.available() && !isValidHeader(dataHeader)) {
+            dataHeader = xbeeSerial.read();
         }
-        
-        //read all of the available data
-        while (xbeeSerial.available()) {
-            //check if we are starting a new transmission
-            if (curByte == numBytes) {
-                //read the header and set up the data targets
-                dataHeader = xbeeSerial.read();
-                
-                //iterate through the header masks and build the targets list
-                curByte = 0;
-                for (int i = 0; i < 8; i++) {
-                  //add the target to our list if we have a match
-                  if (dataHeader & headerMasks[i]) {
-                      dataTargets[curByte] = i;
-                      curByte++;
-                  }
-                }
 
-                //Get ready to receive the data
-                numBytes = curByte;
-                curByte = 0;
-                
-            } else {
-                //read the data into the target for the current byte
-                switch(dataTargets[curByte]) {
-                  case 0:
-                    joy[LEFT][X] = xbeeSerial.read();
-                    break;
-                  case 1:
-                    joy[LEFT][Y] = xbeeSerial.read();
-                    break;
-                  case 2:
-                    joy[RIGHT][X] = xbeeSerial.read();
-                    break;
-                  case 3:
-                    joy[RIGHT][Y] = xbeeSerial.read();
-                    break;
-                  case 4:
-                    triggers[LEFT] = xbeeSerial.read();
-                    break;
-                  case 5:
-                    triggers[RIGHT] = xbeeSerial.read();
-                    break;
-                  case 6:
-                    updateButtons(LEFT, xbeeSerial.read());
-                    break;
-                  case 7:
-                    updateButtons(RIGHT, xbeeSerial.read());
-                    break;
+        //if we found a valid header, read the following data
+        if (isValidHeader(dataHeader)) {
+            
+            //Figure out what data is coming based on the header
+            numBytes = getDataTargets(dataTargets, dataHeader);
+    
+            //Get ready to receive the data
+            unsigned long int readStart = millis();
+            
+            //read until done or timeout
+            while (millis() - readStart < PACKET_TIMEOUT && curByte < numBytes) {
+                if (xbeeSerial.available()) {
+                    //read the data into the target for the current byte
+                    switch(dataTargets[curByte]) {
+                      case 0:
+                        updateJoy(LEFT, X, xbeeSerial.read());
+                        break;
+                      case 1:
+                        updateJoy(LEFT, Y, xbeeSerial.read());
+                        break;
+                      case 2:
+                        updateJoy(RIGHT, X, xbeeSerial.read());
+                        break;
+                      case 3:
+                        updateJoy(RIGHT, Y, xbeeSerial.read());
+                        break;
+                      case 4:
+                        updateTrigger(LEFT, xbeeSerial.read());
+                        break;
+                      case 5:
+                        updateTrigger(RIGHT, xbeeSerial.read());
+                        break;
+                      case 6:
+                        updateButtons(LEFT, xbeeSerial.read());
+                        break;
+                      case 7:
+                        updateButtons(RIGHT, xbeeSerial.read());
+                        break;
+                    }
+    
+                    //go to the next byte
+                    curByte++;
                 }
-
-                //go to the next byte
-                curByte++;
             }
         }
+
         
         //update the time of last receiving data
         lastReceive = millis();
     }
+}
+
+/**
+ * Check if the given header is valid.
+ * This checks to make sure header is not all zeros and last two bits are empty.
+ * 
+ * @param header - value to check.
+ * @return true if valid, false otherwise.
+ */
+bool Controller::isValidHeader(uint8_t header) {
+  return header != 0 && !(header & 0b11000000u);
+}
+
+/**
+ * Build the list of data targets based on the header bits.
+ * 
+ * @param dataTargets - array to fill with data targets.
+ * @param dataHeader - the header of the data.
+ * @return number of data targets found.
+ */
+int8_t Controller::getDataTargets(uint8_t dataTargets[], int8_t dataHeader) {
+  int8_t numBytes = 0;
+  for (int i = 0; i < 8; i++) {
+    //add the target to our list if we have a match
+    if (dataHeader & headerMasks[i]) {
+        dataTargets[numBytes] = i;
+        numBytes++;
+    }
+  }
+  
+  return numBytes;
 }
 
 /**
@@ -268,6 +305,29 @@ void Controller::receiveData() {
 void Controller::updateButtons(Dir side, uint8_t newVal) {
     buttonClicks[side] = newVal & ~buttons[side];  //set click to 1 if button went from 0 to 1
     buttons[side] = newVal;
+}
+
+/**
+ * @brief Update the value of the joystick. Take in an unsigned 8-bit char and convert 
+ * to a float in the range -1.0 to 1.0.
+ * 
+ * @param side - Side of the joystick. (LEFT or RIGHT).
+ * @param axis - Axis to update. (X or Y).
+ * @param newVal - New value for the joystick axis. Value in the range 0 to 255.
+ */
+void Controller::updateJoy(Dir side, Axis axis, uint8_t newVal) {
+    joy[side][axis] = (newVal / 127.5) - 1.0;
+}
+
+/**
+ * @brief Update the value of the trigger. Take in an unsigned 8-bit char and convert 
+ * to a float in the range 0.0 to 1.0.
+ * 
+ * @param side - Side of the trigger. (LEFT or RIGHT).
+ * @param newVal - New value for the joystick axis. Value in the range 0 to 255.
+ */
+void Controller::updateTrigger(Dir side, uint8_t newVal) {
+  triggers[side] = newVal / 255.0;
 }
 
 /**

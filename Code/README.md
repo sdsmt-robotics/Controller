@@ -8,7 +8,7 @@ Folders with general classes:
 Folders with controller code:
  - **rev1** - code to run on rev1 of the board.   
  - **rev2** - code to run on rev2 of the board *(coming soon)*.   
- - **rev3** - code to run on rev3 of the board *(coming soon)*.   
+ - **rev3** - code to run on rev3 of the board.   
   
 Folders with example code and documentation:
  - **sketch_dec04a** - documentation and example code for rev3.   
@@ -118,7 +118,12 @@ The class must be told when to try to read incoming data. This can be placed in 
 		controller.receiveData();
 	}
 
-  
+This class also contains a helper function to set the deadzone for the joysticks. Values with a magnitude smaller than this will be returned as 0.0.
+
+	controller.setJoyDeadzone(floatVal);
+
+
+
 **Checking if Connected**  
 The controller connection will time out if nothing is received or over 1 second. This function will check the connection status.
 
@@ -152,11 +157,22 @@ There are also functions for getting button clicks. These are useful in instance
 
 **Other Notes**  
 *On handling incoming serial data:*  
-It seems natural to put the incoming data handler in the Arduino  serialEvent() function since it supposedly gets called whenever serial data is available. But guess what: IT DOESN'T! It only gets called *at the end of an Arduino loop()* if serial data is available. Depending on the time taken in this loop, the incoming values may overflow the serial receive buffer.  
+It seems natural to put the incoming data handler in the Arduino  serialEvent() function since it supposedly gets called whenever serial data is available. But guess what: IT DOESN'T! It only gets called *at the end of an Arduino loop()* if serial data is available. Since a new transmission can be sent once per 20ms, if loop() takes longer than this you will loose data!  
   
 *On serial buffer size:*  
-A full transmission is 9 bytes. By default, the Arduino serial buffer is 8 bytes. In limited testing, this never caused an issue. If it should become an issue, the serial buffer can be increased by editing the Arduino source files. Google it and yee shall find.  
+A full transmission is 9 bytes. By default, the Arduino serial buffer is 8 bytes. In limited testing, this never caused an issue. When the controller does a full send, it actually breaks it into left and right halves. A true full send will likely never happen. If this should become an issue, the serial buffer can be increased by editing the Arduino source files.  
 
 # Version Specific Notes
 **Rev 1**  
 Nothing perticular to note here. The controller does not have triggers, bumpers, or button connections to the joysticks. It also does not have a dpad, so those functions refer to the left set of butttons.
+
+**Rev 3**  
+This controller does some unique stuff for reading button presses. The buttons are read as a grid. Four pins (R1, R2, R3, R4) send a pulse to a set of buttons. Then three input pins (C1, C2, C3) read the values from these buttons. This reduces the number of pins required to read the 12 buttons. The grid pattern is as shown below:
+
+|        |      R1      |     R2      |     R3      |    R4     |
+|--------|--------------|-------------|-------------|-----------|
+| **C1** | Button Right | Button Left | Button Down | Button Up |
+| **C2** | Dpad Down    | Dpad Right  | Dpad Left   | Dpad Up   |
+| **C3** | Right Bump   | Left Bump   | Left Joy    | Right Joy |
+
+This does have the side effct however, that when sending a pulse to the set of buttons it takes time for things to settle down. Because of this, there is a delay of 10ms in the code. Removing or lowering the delay can cause mis-reads, no-reads, and/or possible heart failure.

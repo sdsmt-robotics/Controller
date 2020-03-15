@@ -15,7 +15,7 @@ Controller controller(Serial1);
 
 //Have the class handle the data whenever it arrives
 //NOTE: this function is stupid. It is not actually an interrupt. It is only 
-//      called when once per loop(). DO NOT USE delay() OR YOU WILL LOOSE STUFF!
+//      called when once per loop(). IF loop() is long than 20ms, YOU WILL LOOSE STUFF!
 void serialEvent1() {
   controller.receiveData();
 }
@@ -24,11 +24,14 @@ void serialEvent1() {
 void setup() {
   Serial.begin(115200);
   
-  //initialize the communications
+  //initialize the receiver
   controller.init();
   Serial.println("Waiting for connection...");
   while (!controller.connected()) { delay(10); }
   Serial.println("Connected...");
+
+  //set a deadzone for the joysticks
+  controller.setJoyDeadzone(0.08);
 }
 
 //=====MAIN LOOP=============================================
@@ -36,12 +39,13 @@ void loop() {
   //Uncomment a demo mode to run it.
 
   //Print all values to the serial monitor
-  //printEverything();
+  printEverything();
 
   //only print button changes (clicks)
-  printButtonChanges();
+  //printButtonChanges();
 }
 
+//=====DEMOS=============================================
 /**
  * Display when one of the buttons get pressed (clicked).
  */
@@ -143,6 +147,11 @@ void printEverything() {
     Serial.print(",");
     Serial.print(controller.joystick(RIGHT,Y));
     Serial.println("]");
+
+    if(abs(controller.joystick(RIGHT,X)) < 0.001 || abs(controller.joystick(RIGHT,Y)) < 0.001 
+      || abs(controller.joystick(LEFT,X)) < 0.001 || abs(controller.joystick(LEFT,Y)) < 0.001) {
+      //Serial.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
     
     lastPrint = millis();
   }
