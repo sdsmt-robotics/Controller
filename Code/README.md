@@ -7,7 +7,7 @@ Folders with general classes:
 
 Folders with controller code:
  - **rev1** - code to run on rev1 of the board.   
- - **rev2** - code to run on rev2 of the board *(coming soon)*.   
+ - **rev2** - code to run on rev2 of the board.   
  - **rev3** - code to run on rev3 of the board.   
   
 Folders with example code and documentation:
@@ -165,6 +165,11 @@ A full transmission is 9 bytes. By default, the Arduino serial buffer is 8 bytes
 # Version Specific Notes
 **Rev 1**  
 Nothing perticular to note here. The controller does not have triggers, bumpers, or button connections to the joysticks. It also does not have a dpad, so those functions refer to the left set of butttons.
+
+**Rev 2**  
+This controller splits buttons into three sets and reads analog values from a set to determine which button is pressed. The buttons are wired such that each button will have a distinct analog value associated with it when pressed. Each set of buttons is also connected to an interrupt which will trigger when any of the buttons are pressed.
+
+Also of note: the triggers on this controller are actually buttons. They are only ever on or off. If they are pressed, the controller will send the max value for the trigger.  
 
 **Rev 3**  
 This controller does some unique stuff for reading button presses. The buttons are read as a grid. Four pins (R1, R2, R3, R4) send a pulse to a set of buttons. Then three input pins (C1, C2, C3) read the values from these buttons. This reduces the number of pins required to read the 12 buttons. The grid pattern is as shown below:
