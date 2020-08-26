@@ -9,16 +9,17 @@
  
 #include "Controller.h"
 
+bool disconnected = false;
 
 //Create the communications object. Use Serial for the communications.
-Controller controller(Serial1);
+Controller controller(Serial3);
 
 //Have the class handle the data whenever it arrives
 //NOTE: this function is stupid. It is not actually an interrupt. It is only 
 //      called when once per loop(). IF loop() is long than 20ms, YOU WILL LOOSE STUFF!
-void serialEvent1() {
-  controller.receiveData();
-}
+//void serialEvent1() {
+//  controller.receiveData();
+//}
 
 //=====SETUP=============================================
 void setup() {
@@ -37,12 +38,20 @@ void setup() {
 //=====MAIN LOOP=============================================
 void loop() {
   //Uncomment a demo mode to run it.
-
-  //Print all values to the serial monitor
-  printEverything();
-
-  //only print button changes (clicks)
-  //printButtonChanges();
+  if (controller.connected()) {
+    //Print all values to the serial monitor
+    printEverything();
+  
+    //only print button changes (clicks)
+    //printButtonChanges();
+    
+    disconnected = false;
+  } else {
+    if (!disconnected) {
+      Serial.println("Disconnected! Waiting for reconnect...");
+      disconnected = true;
+    }
+  }
 }
 
 //=====DEMOS=============================================
