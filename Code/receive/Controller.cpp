@@ -204,9 +204,8 @@ void Controller::receiveData() {
     uint8_t dataHeader = 0;  //header for the packet of send data
     int8_t curByte = 0;      //current byte in the transmission
     int8_t numBytes = 0;     //number of bytes in the transmission
-
+    
     if (xbeeSerial.available()) {
-
         //read the first valid header
         dataHeader = xbeeSerial.read();
         while (xbeeSerial.available() && !isValidHeader(dataHeader)) {
