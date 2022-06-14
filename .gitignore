@@ -7,6 +7,8 @@
 *.b$?
 *.s$?
 *.l$?
+*.bak
+*backup*
 
 # Eagle project file
 # It contains a serial number and references to the file structure

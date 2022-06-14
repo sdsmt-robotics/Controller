@@ -1,0 +1,19 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid ffe7044a-20ff-4a46-b7ee-d79e7c7642c8)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (hierarchical_label "XBEE_TX" (shape input) (at 170.815 86.741 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid 16ae3a06-af13-4f9d-84a8-79cdaaf7aff1)
+  )
+  (hierarchical_label "XBEE_RX" (shape input) (at 170.942 89.408 0)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid 9a8c9571-adf1-4f13-82d4-a8dfe11071ba)
+  )
+)
