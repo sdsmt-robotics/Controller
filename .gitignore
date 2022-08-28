@@ -52,3 +52,8 @@ eagle.epf
 
 # file locks introduced since 7.x
 *.lck
+
+# compiled binaries
+Code/Robotics-Controller/build/*
+*.o
+*.hex
