@@ -338,6 +338,9 @@
     (path "/761fe907-e5d9-42db-98c6-e1ff4e3d741c/0a613fdf-4df2-493c-8076-6d86c1647a3e"
       (reference "#PWR?") (unit 1) (value "~") (footprint "")
     )
+    (path "/ffa3077b-4b8f-4457-b85f-2611ac6fe647/0ae2ed35-d312-4352-a5b9-4a0380f3c3be"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
     (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/0eef434f-e649-46fb-b7b6-7db7253a7f7f"
       (reference "#PWR?") (unit 1) (value "~") (footprint "")
     )
