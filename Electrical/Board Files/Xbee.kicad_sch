@@ -8,7 +8,7 @@
   )
 
 
-  (hierarchical_label "XBEE_TX" (shape input) (at 170.815 86.741 0)
+  (hierarchical_label "XBEE_TX" (shape output) (at 170.815 86.741 0)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 16ae3a06-af13-4f9d-84a8-79cdaaf7aff1)
   )
