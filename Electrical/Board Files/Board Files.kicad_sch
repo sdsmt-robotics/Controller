@@ -454,9 +454,6 @@
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/d4bf42d1-3826-4841-9695-cefa438369eb"
       (reference "#PWR?") (unit 1) (value "VBUS") (footprint "")
     )
-    (path "/be02c95d-2968-40ec-875d-106e3ff13333/da4dd43e-340e-49b8-bbcc-9fd0c06b50e3"
-      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
-    )
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/de07aa50-e796-42e6-b6c8-f9ee01a83183"
       (reference "#PWR?") (unit 1) (value "GND") (footprint "")
     )
@@ -613,20 +610,11 @@
     (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/0933c2f3-d817-4944-bfbf-22fab5676475"
       (reference "D?") (unit 1) (value "~") (footprint "")
     )
-    (path "/be02c95d-2968-40ec-875d-106e3ff13333/12eb8b79-4f9b-4b97-a9c3-a2c6ffbb038e"
-      (reference "D?") (unit 1) (value "WS2812B") (footprint "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
-    )
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/46aff6e4-1c6d-43cd-a2b9-8ba383ee157d"
       (reference "D?") (unit 1) (value "~") (footprint "")
     )
-    (path "/be02c95d-2968-40ec-875d-106e3ff13333/5a760cf7-f0fc-4c15-b596-6b98bfec9b21"
-      (reference "D?") (unit 1) (value "WS2812B") (footprint "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
-    )
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/5d46cc83-60a8-4e89-8708-a354e27fb7b8"
       (reference "D?") (unit 1) (value "~") (footprint "")
-    )
-    (path "/be02c95d-2968-40ec-875d-106e3ff13333/5d85bee0-780e-4698-81b2-c7e7458f7265"
-      (reference "D?") (unit 1) (value "WS2812B") (footprint "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
     )
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/73eab430-48c8-416c-b8ff-b7c2055fc301"
       (reference "D?") (unit 1) (value "~") (footprint "")
@@ -637,17 +625,11 @@
     (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/8ed255e1-cbb2-4933-9f86-743432eeb9c0"
       (reference "D?") (unit 1) (value "LED_Small") (footprint "")
     )
-    (path "/be02c95d-2968-40ec-875d-106e3ff13333/9393145f-d65e-4ae0-99f5-45250a32d379"
-      (reference "D?") (unit 1) (value "WS2812B") (footprint "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
-    )
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/957989e8-4ccd-4d45-8103-ec8961384918"
       (reference "D?") (unit 1) (value "~") (footprint "")
     )
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/ebe1ff0a-a85f-4c60-a518-2e8dad483c21"
       (reference "D?") (unit 1) (value "~") (footprint "")
-    )
-    (path "/be02c95d-2968-40ec-875d-106e3ff13333/fa5e3fe4-fa93-41d2-8459-6a4445820401"
-      (reference "D?") (unit 1) (value "WS2812B") (footprint "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm")
     )
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/c9e7d01d-b808-46e7-b976-103731db91a5"
       (reference "J?") (unit 1) (value "Conn_01x02_Female") (footprint "")
@@ -667,6 +649,9 @@
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/fb0d2a91-d314-4338-8022-65a17526f3f1"
       (reference "L?") (unit 1) (value "1.5u") (footprint "")
     )
+    (path "/899d6960-0494-4e8f-9091-802503c02d1b/58a994be-3ca6-4408-b180-0cc43b3cdf2d"
+      (reference "Q?") (unit 1) (value "PJA3411") (footprint "")
+    )
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/8e41418c-5694-4334-8ad2-aab65297997c"
       (reference "Q?") (unit 1) (value "PJA3411") (footprint "")
     )
@@ -676,8 +661,14 @@
     (path "/899d6960-0494-4e8f-9091-802503c02d1b/15ffba9b-78eb-4476-afd1-558943af1680"
       (reference "R?") (unit 1) (value "137k") (footprint "")
     )
+    (path "/899d6960-0494-4e8f-9091-802503c02d1b/299cddaa-994d-41ac-8539-e7f95f3c4c12"
+      (reference "R?") (unit 1) (value "10") (footprint "")
+    )
     (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/3a0d4777-9430-46c2-8f45-2f324f272eb2"
       (reference "R?") (unit 1) (value "270R") (footprint "")
+    )
+    (path "/899d6960-0494-4e8f-9091-802503c02d1b/43628f37-5a5c-4797-a6e1-d7e4c3ddd144"
+      (reference "R?") (unit 1) (value "10") (footprint "")
     )
     (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/4c62ac1c-8668-44e6-ab36-0ca34370e15b"
       (reference "R?") (unit 1) (value "27R") (footprint "")
