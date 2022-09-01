@@ -861,6 +861,9 @@
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/4bca7300-c465-46b6-a3bf-a97407b63e56"
       (reference "SW?") (unit 1) (value "~") (footprint "")
     )
+    (path "/899d6960-0494-4e8f-9091-802503c02d1b/52247894-2ae8-4355-a429-0f2342054afb"
+      (reference "SW?") (unit 1) (value "SW_DIP_x01") (footprint "")
+    )
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/c0a7bfc6-36e2-4384-b719-5fa1058ed16a"
       (reference "SW?") (unit 1) (value "~") (footprint "")
     )
