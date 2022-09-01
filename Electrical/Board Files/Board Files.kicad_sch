@@ -4,6 +4,12 @@
 
   (paper "A4")
 
+  (title_block
+    (title "Robotics Controller")
+    (rev "A")
+    (company "Rockerbotics")
+  )
+
   (lib_symbols
   )
 
