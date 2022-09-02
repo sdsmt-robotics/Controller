@@ -6,6 +6,7 @@
 
   (title_block
     (title "Robotics Controller")
+    (date "2022-09-02")
     (rev "A")
     (company "Rockerbotics")
   )
