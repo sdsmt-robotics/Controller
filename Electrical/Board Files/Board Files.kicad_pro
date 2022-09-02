@@ -30,7 +30,14 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "lib_symbol_issues|1826260|1041400|d64e8d8d-dbec-4d37-a484-487b7a33ba5d|00000000-0000-0000-0000-000000000000",
+      "multiple_net_names|889000|570230|8bde3013-8a21-4c78-a111-b1d7b297b93a|51719f68-8ee4-4d1c-85c1-081cb7e84f94",
+      "pin_to_pin|1395730|697230|7abb4571-19ec-4b4f-bf8c-9ba551de1e12|31772142-89c4-4e34-82a0-4753f52827ad",
+      "pin_to_pin|1582420|1203960|525aa00a-e5a5-4fa8-bffe-aa7e6dd1bec4|8b3ae031-d027-4f0b-907e-8bc023980bb6",
+      "pin_to_pin|1582420|1203960|525aa00a-e5a5-4fa8-bffe-aa7e6dd1bec4|c193d99f-5859-4ac8-9e43-22a1d8799751",
+      "pin_to_pin|1582420|1203960|c193d99f-5859-4ac8-9e43-22a1d8799751|8b3ae031-d027-4f0b-907e-8bc023980bb6"
+    ],
     "meta": {
       "version": 0
     },
