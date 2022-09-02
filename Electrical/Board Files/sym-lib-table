@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name "Controller")(type "KiCad")(uri "${KIPRJMOD}/../Libraries/Symbols/Controller.kicad_sym")(options "")(descr ""))
+  (lib (name "xbp9b-dmwtb002")(type "KiCad")(uri "/home/pk/Workspace/Controller/Electrical/Libraries/Symbols/xbp9b-dmwtb002.kicad_sym")(options "")(descr ""))
 )
