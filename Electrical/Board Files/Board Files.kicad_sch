@@ -422,7 +422,7 @@
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (id 1) (at 53.213 170.3069 90)
-      (effects (font (size 1.27 1.27)) (justify left))
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" (id 2) (at 58.293 174.117 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -459,7 +459,7 @@
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (id 1) (at 136.271 172.8469 90)
-      (effects (font (size 1.27 1.27)) (justify left))
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" (id 2) (at 131.191 176.657 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -493,7 +493,7 @@
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (id 1) (at 136.271 170.3069 90)
-      (effects (font (size 1.27 1.27)) (justify left))
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" (id 2) (at 131.191 174.117 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -529,7 +529,7 @@
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (id 1) (at 53.213 167.7669 90)
-      (effects (font (size 1.27 1.27)) (justify left))
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" (id 2) (at 58.293 171.577 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -547,7 +547,7 @@
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (id 1) (at 136.271 167.7669 90)
-      (effects (font (size 1.27 1.27)) (justify left))
+      (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Footprint" "TestPoint:TestPoint_THTPad_2.0x2.0mm_Drill1.0mm" (id 2) (at 131.191 171.577 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -957,6 +957,21 @@
     (path "/7cc79bd2-039f-416d-bb6d-e5ab625e9395"
       (reference "#PWR0101") (unit 1) (value "+3V3") (footprint "")
     )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/18ffb899-3e45-4805-a8f1-9ae2dcae6953"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/30c50e6a-c070-4733-b3f4-4f88267487da"
+      (reference "#PWR?") (unit 1) (value "VBUS") (footprint "")
+    )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/93e9e0ab-e3df-4319-ae5d-5928cc54c4dd"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/c47211c6-b9de-4e82-aca5-2f2c37d85699"
+      (reference "#PWR?") (unit 1) (value "~") (footprint "")
+    )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/d9d83ef2-368c-44ab-9aee-7a4aee403a3f"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
     (path "/be02c95d-2968-40ec-875d-106e3ff13333/6ef1c94a-5d04-44b4-8be3-ff213f767449"
       (reference "BZ1") (unit 1) (value "Buzzer") (footprint "")
     )
@@ -1079,6 +1094,12 @@
     )
     (path "/761fe907-e5d9-42db-98c6-e1ff4e3d741c/7c9e6d79-377e-48f0-a29a-559ba80fcd14"
       (reference "C40") (unit 1) (value "0.01u") (footprint "Capacitor_SMD:C_0603_1608Metric")
+    )
+    (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/2b00caee-ec22-415f-9bde-95858c02627f"
+      (reference "C?") (unit 1) (value "0.1u") (footprint "")
+    )
+    (path "/e09ee552-eb48-4e80-8b06-29cfae21f4b7/a0e063e6-ae3f-4c38-8410-34b4b5cf44f5"
+      (reference "C?") (unit 1) (value "C") (footprint "")
     )
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/71ae1396-694c-4f1a-8dbc-510787c9338c"
       (reference "D1") (unit 1) (value " - ") (footprint "Diode_SMD:D_SOD-323")
@@ -1265,6 +1286,18 @@
     )
     (path "/28bacfba-e192-4f1a-bb0f-2d223f49ce66"
       (reference "R27") (unit 1) (value "4k") (footprint "Resistor_SMD:R_0603_1608Metric")
+    )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/0d0fb61f-c32b-4e2c-909e-e344c873a478"
+      (reference "R?") (unit 1) (value "10k") (footprint "")
+    )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/15d73994-9d47-4ef5-ae7f-e90d9dd439b9"
+      (reference "R?") (unit 1) (value "10k") (footprint "")
+    )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/5f4a6ffe-074c-471b-b07a-dbb73cd5e548"
+      (reference "R?") (unit 1) (value "10k") (footprint "")
+    )
+    (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/d1d3af60-2569-48ce-9fe3-e29102f1536f"
+      (reference "R?") (unit 1) (value "10k") (footprint "")
     )
     (path "/e322e877-fa4b-40a1-b9eb-04bd2db5ed6c/3de267d4-c1ac-49b4-9115-da53f4d7c2c5"
       (reference "SW1") (unit 1) (value "~") (footprint "")

@@ -595,10 +595,10 @@
     )
   )
 
-  (bus_alias "UART" (members "RX" "TX"))
-  (bus_alias "SWD" (members "DATA" "CLK" "NRST"))
-  (bus_alias "I2C" (members "SDA" "SCL"))
   (bus_alias "SPI" (members "MOSI" "MISO" "SCK" "CS"))
+  (bus_alias "I2C" (members "SDA" "SCL"))
+  (bus_alias "SWD" (members "DATA" "CLK" "NRST"))
+  (bus_alias "UART" (members "RX" "TX"))
   (junction (at 109.982 44.323) (diameter 0) (color 0 0 0 0)
     (uuid 0cfece5e-57fc-4aaa-b8b9-dc4a3e24b686)
   )
